@@ -8,10 +8,13 @@ import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.Setmeal;
 import com.itheima.health.service.SetmealService;
 import com.itheima.health.utils.QiNiuUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +32,9 @@ public class SetmealController {
 
     @Reference
     private SetmealService setmealService;
+
+    @Autowired
+    private JedisPool jedisPool;
 
     @PostMapping("/upload")
     public Result upload (MultipartFile imgFile){
@@ -71,7 +77,13 @@ public class SetmealController {
     @PostMapping("/add")
     public Result add(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
 
-        setmealService.add(setmeal,checkgroupIds);
+        Integer setmealId = setmealService.add(setmeal, checkgroupIds);
+
+        //添加redis的套餐静态页面
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        jedis.sadd(key,setmealId+"|1|"+System.currentTimeMillis());
+        jedis.close();
 
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
     }

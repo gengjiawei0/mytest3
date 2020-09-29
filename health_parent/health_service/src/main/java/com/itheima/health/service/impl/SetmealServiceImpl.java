@@ -26,7 +26,7 @@ public class SetmealServiceImpl implements SetmealService {
     private SetmealDao setmealDao;
     @Override
     @Transactional
-    public void add(Setmeal setmeal, Integer[] checkgroupIds) {
+    public Integer add(Setmeal setmeal, Integer[] checkgroupIds) {
         //添加套餐信息返回id值
     setmealDao.add(setmeal);
     //获取id
@@ -38,6 +38,7 @@ public class SetmealServiceImpl implements SetmealService {
                 setmealDao.addSetmealCheckGroup(setmealId,checkgroupId);
             }
         }
+        return setmealId;
     }
 
     @Override
@@ -57,5 +58,16 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public List<String> findImgs() {
         return setmealDao.findImgs();
+    }
+
+    @Override
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
+    }
+
+    @Override
+    /*客户端查询套餐详情*/
+    public Setmeal findDetailById(int id) {
+       return setmealDao.findDetailById(id);
     }
 }

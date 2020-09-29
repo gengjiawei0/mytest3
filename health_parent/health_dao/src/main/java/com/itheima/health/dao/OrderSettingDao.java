@@ -16,4 +16,6 @@ public interface OrderSettingDao {
     void add(OrderSetting orderSetting);
     //传入的两个数据都是基础数据
     List<Map<String, Integer>> getOrderSettingBetween(@Param("startDate") String startDate,@Param("endDate") String endDate);
+
+    int updateReservations(OrderSetting orderSetting);
 }

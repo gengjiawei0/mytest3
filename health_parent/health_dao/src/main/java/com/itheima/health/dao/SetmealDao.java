@@ -14,4 +14,8 @@ public interface SetmealDao {
     Page<Setmeal> findByCondition(String queryString);
 
     List<String> findImgs();
+
+    List<Setmeal> findAll();
+    /*客户端查询套餐详情*/
+    Setmeal findDetailById(int id);
 }

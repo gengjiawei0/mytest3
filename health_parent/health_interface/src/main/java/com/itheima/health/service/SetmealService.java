@@ -8,9 +8,13 @@ import java.util.List;
 
 public interface SetmealService {
 
-    void add(Setmeal setmeal, Integer[] checkgroupIds);
+    Integer add(Setmeal setmeal, Integer[] checkgroupIds);
 
     PageResult<Setmeal> findPage(QueryPageBean queryPageBean);
 
     List<String> findImgs();
+
+    List<Setmeal> findAll();
+
+    Setmeal findDetailById(int id);
 }

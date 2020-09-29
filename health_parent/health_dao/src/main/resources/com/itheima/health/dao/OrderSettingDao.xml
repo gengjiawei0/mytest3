@@ -6,8 +6,14 @@
         #{orderDate},#{number},#{reservations}
         )
     </insert>
+
     <update id="updateNumber" parameterType="OrderSetting">
         update t_ordersetting set number = #{number} where orderDate = #{orderDate,jdbcType=DATE}
+    </update>
+
+    <update id="updateReservations" parameterType="OrderSetting">
+        update t_ordersetting set reservations = (reservations+1) where orderDate =#{orderDate} and
+        reservations &lt; number
     </update>
 
     <select id="findByOrderDate" resultType="OrderSetting" parameterType="date">

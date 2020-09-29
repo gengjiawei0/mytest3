@@ -9,6 +9,7 @@ import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.CheckItem;
 import com.itheima.health.service.CheckItemService;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
@@ -44,6 +45,7 @@ public class CheckItemController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('CHECKITEM_ADD')")
     public Result add(@RequestBody CheckItem checkItem){
 
 
@@ -53,6 +55,7 @@ public class CheckItemController {
     }
 
     @PostMapping("/findPage")
+    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     public Result findPage(@RequestBody QueryPageBean queryPageBean){
       PageResult<CheckItem> pageResult = checkItemService.findPage(queryPageBean);
 

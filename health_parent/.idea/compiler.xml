@@ -10,9 +10,11 @@
         <module name="health_dao" />
         <module name="health_interface" />
         <module name="health_jobs" />
+        <module name="health_mobile" />
         <module name="health_pojo" />
         <module name="health_service" />
         <module name="health_web" />
+        <module name="springsecurity_demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
